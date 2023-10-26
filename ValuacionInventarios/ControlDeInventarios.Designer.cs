@@ -110,6 +110,7 @@
             cmbTipoMetodo.Name = "cmbTipoMetodo";
             cmbTipoMetodo.Size = new Size(133, 25);
             cmbTipoMetodo.TabIndex = 4;
+            cmbTipoMetodo.SelectedIndexChanged += cmbTipoMetodo_SelectedIndexChanged;
             // 
             // cmbConcepto
             // 
@@ -336,7 +337,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1008, 421);
+            ClientSize = new Size(1008, 419);
             Controls.Add(lvEntradas);
             Controls.Add(label4);
             Controls.Add(lblHora);

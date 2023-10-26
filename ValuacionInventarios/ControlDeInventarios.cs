@@ -19,6 +19,9 @@ namespace ValuacionInventarios
         Stack<Material> MaterialesUEPS = new Stack<Material>();
         Queue<Material> MaterialesPEPS = new Queue<Material>();
 
+        Stack<int> copiaCantidad = new Stack<int>();
+        Stack<double> copiaPrecioUnitario = new Stack<double>();
+
         public frmControlDeInventarios()
         {
             InitializeComponent();
@@ -42,6 +45,7 @@ namespace ValuacionInventarios
             cmbConcepto.Items.Add("Venta");
 
             // Desactivando cuadros de texto
+            cmbConcepto.Enabled = false;
             txtCantidad.Enabled = false;
             txtValorUnitario.Enabled = false;
             btnRegistrar.Enabled = false;
@@ -113,6 +117,32 @@ namespace ValuacionInventarios
             }
             else if (cmbTipoMetodo.Text == "UEPS" && cmbConcepto.Text == "Venta")
             {
+                Material copiaMaterial = MaterialesUEPS.Pop();
+                if (copiaMaterial.Cantidad == MaterialEntrante.Cantidad)
+                {
+                    ListViewItem filaFecha = new ListViewItem(DateTime.Now.ToShortDateString());
+                    lvFecha.Items.Add(filaFecha);
+
+                    ListViewItem filaEntrada = new ListViewItem("----------------");
+                    filaEntrada.SubItems.Add("----------------");
+                    filaEntrada.SubItems.Add("----------------");
+                    lvEntradas.Items.Add(filaEntrada);
+
+                    ListViewItem filaSalida = new ListViewItem(MaterialEntrante.Cantidad.ToString());
+                    filaSalida.SubItems.Add(copiaMaterial.PrecioUnitario.ToString("C"));
+                    filaSalida.SubItems.Add(copiaMaterial.CalculaPrecioTotal().ToString("C"));
+                    lvSalidas.Items.Add(filaSalida);
+
+                    ListViewItem filaSaldos = new ListViewItem("----------------");
+                    filaSaldos.SubItems.Add("----------------");
+                    filaSaldos.SubItems.Add("----------------");
+                    lvSaldos.Items.Add(filaSaldos);
+                }
+                else if (MaterialEntrante.Cantidad > copiaMaterial.Cantidad)
+                {
+                    Material copiaMaterial2 = MaterialesUEPS.Pop();
+
+                }
 
             }
         }
@@ -121,15 +151,25 @@ namespace ValuacionInventarios
         {
             if (cmbConcepto.Text == "Compra")
             {
+
+                if (cmbTipoMetodo.Text == "UEPS")
+                {
+                    MaterialEntrante.Concepto = cmbConcepto.Text;
+                    MaterialEntrante.Cantidad = int.Parse(txtCantidad.Text);
+                    MaterialEntrante.PrecioUnitario = double.Parse(txtValorUnitario.Text);
+                    MaterialesUEPS.Push(MaterialEntrante);
+                }
+                else
+                    MaterialEntrante.Concepto = cmbConcepto.Text;
+                    MaterialEntrante.Cantidad = int.Parse(txtCantidad.Text);
+                    MaterialEntrante.PrecioUnitario = double.Parse(txtValorUnitario.Text);
+                    MaterialesPEPS.Enqueue(MaterialEntrante);
+            }
+            else
+            {
                 MaterialEntrante.Concepto = cmbConcepto.Text;
                 MaterialEntrante.Cantidad = int.Parse(txtCantidad.Text);
-                MaterialEntrante.PrecioUnitario = double.Parse(txtValorUnitario.Text);
-
-                MaterialesPEPS.Enqueue(MaterialEntrante);
             }
-
-            MaterialEntrante.Concepto = cmbConcepto.Text;
-            MaterialEntrante.Cantidad = int.Parse(txtCantidad.Text);
         }
 
         private void LimpiarControles()
@@ -138,6 +178,14 @@ namespace ValuacionInventarios
             txtCantidad.Clear();
             txtValorUnitario.Clear();
             cmbConcepto.Focus();
+        }
+
+        private void cmbTipoMetodo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmbTipoMetodo.SelectedIndex != -1) 
+            {
+                cmbConcepto.Enabled = true;
+            }
         }
     }
 }
