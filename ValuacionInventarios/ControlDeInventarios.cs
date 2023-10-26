@@ -49,11 +49,22 @@ namespace ValuacionInventarios
 
         private void cmbConcepto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbConcepto.SelectedIndex != -1)
+            // Si hay cambios en el cmbConcepto y es compra desactiva el cmbTipoMetodo y activa los demás txt´s
+            if (cmbConcepto.SelectedIndex != -1 && cmbConcepto.Text == "Compra")
             {
                 cmbTipoMetodo.Enabled = false;
                 txtCantidad.Enabled = true;
                 txtValorUnitario.Enabled = true;
+                btnRegistrar.Enabled = true;
+            }
+
+            // Si hay cambios en el cmbConcepto y es venta desactiva el cmbTipoMetodo y
+            // txtValorUnitario y activa los demás txt´s
+            if (cmbConcepto.SelectedIndex != -1 && cmbConcepto.Text == "Venta")
+            {
+                cmbTipoMetodo.Enabled = false;
+                txtCantidad.Enabled = true;
+                txtValorUnitario.Enabled = false;
                 btnRegistrar.Enabled = true;
             }
         }
@@ -61,7 +72,6 @@ namespace ValuacionInventarios
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             Agregar();
-
         }
 
         private void Agregar()
@@ -96,29 +106,30 @@ namespace ValuacionInventarios
                 // Imprime en Saldos
                 ListViewItem filaSaldos = new ListViewItem(MaterialEntrante.Cantidad.ToString());
                 filaSaldos.SubItems.Add(MaterialEntrante.PrecioUnitario.ToString("C"));
-                filaSaldos.SubItems.Add(lvEntradas.Top.);
+                filaSaldos.SubItems.Add(valorTotal.ToString("C"));
                 lvSaldos.Items.Add(filaSaldos);
 
                 LimpiarControles();
             }
-            else if (cmbConcepto.Text == "Venta")
+            else if (cmbTipoMetodo.Text == "UEPS"  && cmbConcepto.Text == "Venta")
             {
-                Queue<int> CopiaCantidad = new Queue<int>(MaterialesPEPS.Peek().Cantidad);
-                Queue<double> CopiaPrecioUnitario = new Queue<double>((int)MaterialesPEPS.Peek().PrecioUnitario);
 
             }
         }
 
         private void CapturarDatos()
         {
-            MaterialEntrante.Concepto = cmbConcepto.Text;
-            MaterialEntrante.Cantidad = int.Parse(txtCantidad.Text);
-            MaterialEntrante.PrecioUnitario = double.Parse(txtValorUnitario.Text);
-
             if (cmbConcepto.Text == "Compra")
             {
+                MaterialEntrante.Concepto = cmbConcepto.Text;
+                MaterialEntrante.Cantidad = int.Parse(txtCantidad.Text);
+                MaterialEntrante.PrecioUnitario = double.Parse(txtValorUnitario.Text);
+
                 MaterialesPEPS.Enqueue(MaterialEntrante);
             }
+
+            MaterialEntrante.Concepto = cmbConcepto.Text;
+            MaterialEntrante.Cantidad = int.Parse(txtCantidad.Text);
         }
 
         private void LimpiarControles()
