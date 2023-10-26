@@ -360,7 +360,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmControlDeInventarios";
-            Text = "Control De Inventarios";
+            Text = "Control de Inventarios";
             Load += ControlDeInventarios_Load;
             ResumeLayout(false);
             PerformLayout();

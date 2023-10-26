@@ -111,7 +111,7 @@ namespace ValuacionInventarios
 
                 LimpiarControles();
             }
-            else if (cmbTipoMetodo.Text == "UEPS"  && cmbConcepto.Text == "Venta")
+            else if (cmbTipoMetodo.Text == "UEPS" && cmbConcepto.Text == "Venta")
             {
 
             }
