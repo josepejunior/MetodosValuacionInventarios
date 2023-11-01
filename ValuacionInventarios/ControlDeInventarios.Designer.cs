@@ -60,6 +60,7 @@
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
             columnHeader4 = new ColumnHeader();
+            btnExportar = new Button();
             SuspendLayout();
             // 
             // label1
@@ -120,7 +121,6 @@
             cmbConcepto.Name = "cmbConcepto";
             cmbConcepto.Size = new Size(121, 25);
             cmbConcepto.TabIndex = 5;
-            cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
             // 
             // label5
             // 
@@ -171,7 +171,7 @@
             // 
             // columnHeader1
             // 
-            columnHeader1.Text = "Fecha y Hora ";
+            columnHeader1.Text = "     Fecha ";
             columnHeader1.Width = 93;
             // 
             // label7
@@ -180,9 +180,9 @@
             label7.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             label7.Location = new Point(12, 106);
             label7.Name = "label7";
-            label7.Size = new Size(102, 34);
+            label7.Size = new Size(94, 34);
             label7.TabIndex = 14;
-            label7.Text = "FECHA Y HORA\r\n DEL REGISTRO";
+            label7.Text = "     FECHA \r\nDEL REGISTRO";
             // 
             // label8
             // 
@@ -248,7 +248,7 @@
             // 
             // columnHeader5
             // 
-            columnHeader5.Text = "Cantidad";
+            columnHeader5.Text = "    Cantidad";
             columnHeader5.Width = 95;
             // 
             // columnHeader6
@@ -258,7 +258,7 @@
             // 
             // columnHeader7
             // 
-            columnHeader7.Text = "Valor Total";
+            columnHeader7.Text = "  Valor Total";
             columnHeader7.Width = 95;
             // 
             // lvSaldos
@@ -274,7 +274,7 @@
             // 
             // columnHeader8
             // 
-            columnHeader8.Text = "Cantidad";
+            columnHeader8.Text = "    Cantidad";
             columnHeader8.Width = 95;
             // 
             // columnHeader9
@@ -284,7 +284,7 @@
             // 
             // columnHeader10
             // 
-            columnHeader10.Text = "Valor Total";
+            columnHeader10.Text = "  Valor Total";
             columnHeader10.Width = 95;
             // 
             // label4
@@ -320,7 +320,7 @@
             // 
             // columnHeader2
             // 
-            columnHeader2.Text = "Cantidad";
+            columnHeader2.Text = "   Cantidad";
             columnHeader2.Width = 95;
             // 
             // columnHeader3
@@ -330,14 +330,26 @@
             // 
             // columnHeader4
             // 
-            columnHeader4.Text = "Valor Total";
+            columnHeader4.Text = "  Valor Total";
             columnHeader4.Width = 95;
+            // 
+            // btnExportar
+            // 
+            btnExportar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnExportar.Location = new Point(898, 419);
+            btnExportar.Name = "btnExportar";
+            btnExportar.Size = new Size(96, 25);
+            btnExportar.TabIndex = 26;
+            btnExportar.Text = "EXPORTAR";
+            btnExportar.UseVisualStyleBackColor = true;
+            btnExportar.Click += btnExportar_Click;
             // 
             // frmControlDeInventarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1008, 419);
+            ClientSize = new Size(1008, 456);
+            Controls.Add(btnExportar);
             Controls.Add(lvEntradas);
             Controls.Add(label4);
             Controls.Add(lblHora);
@@ -362,6 +374,7 @@
             Controls.Add(label1);
             Name = "frmControlDeInventarios";
             Text = "Control de Inventarios";
+            FormClosing += frmControlDeInventarios_FormClosing;
             Load += ControlDeInventarios_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -401,5 +414,6 @@
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader4;
+        private Button btnExportar;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 class Inventario
-{
+{ /*
     static void Main()
     {
         /*List<int> inventario = new List<int>();
@@ -65,7 +65,7 @@ class Inventario
         }
 
         Console.WriteLine("Gracias por usar el sistema de control de inventario.");*/
-
+    /*
         Queue<double> copiaCantidad = new Queue<double>(QcantidadSaldos);
         Queue<double> copiaValor = new Queue<double>(QValorSaldos);
 
@@ -173,7 +173,124 @@ class Inventario
             QValorSaldos.Enqueue(convervalor2);
 
         }
+        */
 
-    }
+     else if (cmbConcepto.SelectedItem == "Venta")
+                {
+                    // Copia de los Queue
+                    Queue<double> copiaCantidad = new Queue<double>(QcantidadSaldos);
+    Queue<double> copiaValor = new Queue<double>(QValorSaldos);
+    string converValor1 = copiaValor.Dequeue().ToString();
+    double conver22 = double.Parse(converValor1);
+
+    string valor1 = QcantidadSaldos.Dequeue().ToString();
+    double valor11 = double.Parse(valor1);
+                    if (double.Parse(txtCantidad.Text) <= valor11)
+                    {
+                        double aux1 = valor11 - double.Parse(txtCantidad.Text);
+    double aux2 = conver22 * aux1;
+
+    double aux3 = double.Parse(txtCantidad.Text) * conver22;
+
+    // Imprime fecha
+    ListViewItem fecha = new ListViewItem(DateTime.Now.ToShortDateString());
+    lvFecha.Items.Add(fecha);
+
+                        // Imprime entradas
+                        ListViewItem entrada = new ListViewItem("----------------");
+    entrada.SubItems.Add("----------------");
+                        entrada.SubItems.Add("----------------");
+                        lvEntradas.Items.Add(entrada);
+
+                        // Imprime salidas
+                        ListViewItem salida = new ListViewItem(txtCantidad.Text);
+    salida.SubItems.Add(conver22.ToString("C"));
+                        salida.SubItems.Add(aux3.ToString("C"));
+                        lvSalidas.Items.Add(salida);
+
+                        // Imprime saldos
+                        ListViewItem Saldos = new ListViewItem(aux1.ToString());
+    Saldos.SubItems.Add(conver22.ToString("C"));
+                        Saldos.SubItems.Add(aux2.ToString("C"));
+                        lvSaldos.Items.Add(Saldos);
+
+                        QcantidadSaldos.Clear();
+                        QcantidadSaldos.Enqueue(aux1);
+
+                        QValorSaldos.Clear();
+                        QValorSaldos.Enqueue(conver22);
+
+                        LimpiarControles();
 }
+                    else if (double.Parse(txtCantidad.Text) > valor11)
+{
+    string converCantidad2 = QcantidadSaldos.Dequeue().ToString();
+    double conver2 = double.Parse(converCantidad2);
+
+    string converValor2 = copiaValor.Dequeue().ToString();
+    double convervalor2 = double.Parse(converValor2);
+
+    // Imprime fecha
+    ListViewItem fecha = new ListViewItem(DateTime.Now.ToShortDateString());
+    lvFecha.Items.Add(fecha);
+
+    // Imprime entradas
+    ListViewItem entrada = new ListViewItem("----------------");
+    entrada.SubItems.Add("----------------");
+    entrada.SubItems.Add("----------------");
+    lvEntradas.Items.Add(entrada);
+
+    // Imprime salidas
+    ListViewItem salida = new ListViewItem(valor11.ToString());
+    salida.SubItems.Add(conver22.ToString("C"));
+    salida.SubItems.Add((valor11 * conver22).ToString("C"));
+    lvSalidas.Items.Add(salida);
+
+    // Imprime saldos
+    ListViewItem saldo = new ListViewItem("----------------");
+    saldo.SubItems.Add("----------------");
+    saldo.SubItems.Add("----------------");
+    lvSaldos.Items.Add(saldo);
+
+    // Imprime fecha vacia
+    ListViewItem time2 = new ListViewItem("----------------");
+    lvFecha.Items.Add(time2);
+
+    // Imprime entradas
+    ListViewItem entrada2 = new ListViewItem("----------------");
+    entrada2.SubItems.Add("----------------");
+    entrada2.SubItems.Add("----------------");
+    lvEntradas.Items.Add(entrada2);
+
+    double aux1 = double.Parse(txtCantidad.Text) - valor11;
+
+    // Imprime salidas
+    ListViewItem salida2 = new ListViewItem(aux1.ToString());
+    salida2.SubItems.Add(convervalor2.ToString("C"));
+    salida2.SubItems.Add((aux1 * convervalor2).ToString("C"));
+    lvSalidas.Items.Add(salida2);
+
+    double aux2 = conver2 - aux1;
+
+    // Imprime saldos
+    ListViewItem saldo2 = new ListViewItem(aux2.ToString());
+    saldo2.SubItems.Add(convervalor2.ToString("C"));
+    saldo2.SubItems.Add((aux2 * convervalor2).ToString("C"));
+    lvSaldos.Items.Add(saldo2);
+
+    QcantidadSaldos.Clear();
+    QcantidadSaldos.Enqueue(aux2);
+
+    QValorSaldos.Clear();
+    QValorSaldos.Enqueue(Tot);
+
+    LimpiarControles();
 }
+                }
+            }
+
+
+
+
+
+ }
